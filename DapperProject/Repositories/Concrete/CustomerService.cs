@@ -48,26 +48,35 @@ namespace DapperProject.Repositories.Concrete
         {
 
             string query = "SELECT * FROM Customers WHERE CustomerId = @customerId";
+
             var parameters = new DynamicParameters();
             parameters.Add("@customerId", id);
+
             var connection = _context.CreateConnection();
-            var values= await connection.QueryFirstAsync<GetCustomerByIdDto>(query);
+
+            var values = await connection.QueryFirstAsync<GetCustomerByIdDto>(query, parameters);
+
             return values;
+        
+
         }
 
         public async Task UpdateCustomer(UpdateCustomerDto updateCustomerDto)
         {
-            string query = "UPDATE Customers SET CustomerName = @p1, CustomerSurname = @p2, CustomerBalance = @p3 WHERE CustomerId = @p4";
+          
+            string query = "UPDATE Customers SET CustomerName = @p1, CustomerSurname = @p2, CustomerBalance = @p3 WHERE CustomerId = @customerId";
+
             var parameters = new DynamicParameters();
             parameters.Add("@p1", updateCustomerDto.CustomerName);
             parameters.Add("@p2", updateCustomerDto.CustomerSurname);
             parameters.Add("@p3", updateCustomerDto.CustomerBalance);
-            parameters.Add("@p4", updateCustomerDto.CustomerId);
+            parameters.Add("@customerId", updateCustomerDto.CustomerId);
+
             var connection = _context.CreateConnection();
-            var values= await connection.ExecuteAsync(query, parameters);
+            await connection.ExecuteAsync(query); 
+        
 
 
-
-        }
     }
+}
 }
