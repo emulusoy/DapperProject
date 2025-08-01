@@ -1,4 +1,4 @@
-﻿@model List<DapperProject.Dtos.OrderDtos.ResultOrderDto>
+﻿@model List<DapperProject.Dtos.OrderDtos.ResultOrderWithCustomerDto>
 
 
 @{
@@ -28,7 +28,7 @@
                                 <strong>Order ID:</strong> @order.OrderId <br />
                                 <strong>Price:</strong> ₺@order.ProductPrice.ToString("N2") <br />
                                 <strong>Quantity:</strong> @order.ProductCount <br />
-                                <strong>Customer ID:</strong> @order.CustomerId
+                                <strong>Customer ID:</strong> @order.CustomerName @order.CustomerSurname
                             </p>
                         </div>
                         <div class="card-footer text-end bg-white border-0">

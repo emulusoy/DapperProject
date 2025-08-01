@@ -15,7 +15,8 @@ namespace DapperProject.Controllers
 
         public async Task<IActionResult> OrderList()
         {
-            var values = await _OrderService.GetAllOrderAsync();
+            var values = await _OrderService.GetOrderWithCustomerAsync();
+            
             return View(values);
         }
         [HttpGet]

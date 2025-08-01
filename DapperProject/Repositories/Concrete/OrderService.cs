@@ -55,6 +55,14 @@ namespace DapperProject.Repositories.Concrete
 
         }
 
+        public async Task<List<ResultOrderWithCustomerDto>> GetOrderWithCustomerAsync()
+        {
+            string query = "SELECT OrderId,ProductName,ProductPrice,ProductCount,CustomerName,CustomerSurname FROM Orders Inner Join Customers On Orders.CustomerId=Customers.CustomerId";
+            var connection = _context.CreateConnection();
+            var values = await connection.QueryAsync<ResultOrderWithCustomerDto>(query);
+            return values.ToList();
+        }
+
         public async Task UpdateOrderAsync(UpdateOrderDto updateOrderDto)
         {
             string query = "UPDATE Orders SET ProductName = @ProductName, ProductPrice = @ProductPrice, ProductCount = @ProductCount, CustomerId = @CustomerId WHERE OrderId = @OrderId";
